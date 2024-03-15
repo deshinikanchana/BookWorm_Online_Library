@@ -1,12 +1,11 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.*;
+import BookWorm.DTO.BranchDto;
 import BookWorm.Entity.Book;
 import BookWorm.Entity.BookTransaction;
 import BookWorm.Entity.Branch;
-import BookWorm.Repository.BookRepository;
-import BookWorm.Repository.BranchRepository;
-import BookWorm.Repository.TransactionRepository;
-import BookWorm.Tm.BookTm;
+import BookWorm.DTO.TM.BookTm;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import javafx.collections.FXCollections;
@@ -39,6 +38,10 @@ public class BooksAdminFormController {
     public JFXButton btnDelete;
     public JFXButton BtnUpdate;
 
+    public TransactionDAO transDao = new TransactionDAOimpl();
+    public BookDAO bookDao = new BookDAOimpl();
+
+    public BranchDAO brDao = new BranchDAOimpl();
     public void initialize() throws IOException {
         setCellValueFactory();
         LoadBranchIds();
@@ -49,8 +52,8 @@ public class BooksAdminFormController {
     }
 
     private void setStatus(int id) throws IOException {
-        TransactionRepository trans = new TransactionRepository();
-        List<BookTransaction> transList = trans.GetAllTransactions();
+       // TransactionRepository trans = new TransactionRepository();
+        List<BookTransaction> transList = transDao.GetAllTransactions();
         List<BookTransaction> thisBook = new ArrayList<>();
         for(BookTransaction bookTrans:transList){
             if(id == bookTrans.getBook().getBookId()){
@@ -63,7 +66,7 @@ public class BooksAdminFormController {
         }else if(thisBook.isEmpty()){
             lblAvailability.setText("Available");
         }else{
-            lblAvailability.setText("Not In Library");
+            lblAvailability.setText("Not Available");
         }
 
     }
@@ -71,8 +74,8 @@ public class BooksAdminFormController {
     private void loadAllBooks() throws IOException {
         ObservableList<BookTm> obList = FXCollections.observableArrayList();
     try {
-        BookRepository bookRepo = new BookRepository();
-        List<Book> bookList = bookRepo.getAllBooks();
+        //BookRepository bookRepo = new BookRepository();
+        List<Book> bookList = bookDao.getAllBooks();
         for (Book book : bookList) {
             obList.add(
                     new BookTm(
@@ -104,9 +107,13 @@ public class BooksAdminFormController {
     private void LoadBranchIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try{
-            BranchRepository branchRepo = new BranchRepository();
-            List<Branch> branchList = branchRepo.getAllBranches();
-            for(Branch branch: branchList){
+           // BranchRepository branchRepo = new BranchRepository();
+            List<BranchDto> branchList = brDao.GetAll();
+            List<Branch> brList = new ArrayList<>();
+            for(BranchDto dto: branchList){
+                brList.add(new Branch(dto.getBranchId(),dto.getAddress(),dto.getEmail(),dto.getAdmin(),dto.getBookList()));
+            }
+            for(Branch branch: brList){
                 obList.add(modifyId(branch.getBranchId(),"Br"));
             }
             comboBoxBranchId.setItems(obList);
@@ -125,8 +132,8 @@ public class BooksAdminFormController {
     }
 
     public void SetBookId() throws IOException {
-        BookRepository bookRepo = new BookRepository();
-        List<Book> bookList = bookRepo.getAllBooks();
+        //BookRepository bookRepo = new BookRepository();
+        List<Book> bookList = bookDao.getAllBooks();
         int id = 0;
         for(Book book : bookList) {
         id = book.getBookId();
@@ -142,12 +149,13 @@ public class BooksAdminFormController {
     }
     public void onActionBtnAdd(ActionEvent actionEvent) throws IOException {
         if((txtBookId.getText() != null) & (txtBookTitle.getText() != null) &((String)comboBoxBranchId.getValue()!= null)) {
-            BranchRepository branchRepo = new BranchRepository();
-            Branch br = branchRepo.GetBranch(splitId((String) comboBoxBranchId.getValue(), "Br"));
+           // BranchRepository branchRepo = new BranchRepository();
+            BranchDto dto = brDao.Get(splitId((String) comboBoxBranchId.getValue(), "Br"));
+            Branch br = new Branch(dto.getBranchId(),dto.getAddress(),dto.getEmail(),dto.getAdmin(),dto.getBookList());
             Book book = new Book(splitId(txtBookId.getText(), "B"), txtBookTitle.getText(), txtAuthor.getText(), txtGenre.getText(), "Available", br);
 
-            BookRepository bookRepo = new BookRepository();
-            bookRepo.SaveBook(book);
+            //BookRepository bookRepo = new BookRepository();
+            bookDao.SaveBook(book);
             onActionBtnClear(actionEvent);
             SetBookId();
         }
@@ -170,33 +178,33 @@ public class BooksAdminFormController {
     public void onActionBtnUpdate(ActionEvent actionEvent) throws IOException {
        int id = splitId(txtBookId.getText(),"B");
 
-       BookRepository bookRep = new BookRepository();
-       Book book = bookRep.GetBook(id);
+       //BookRepository bookRep = new BookRepository();
+       Book book = bookDao.GetBook(id);
        setStatus(id);
        book.setAvailabilityStatus(lblAvailability.getText());
 
-       bookRep = new BookRepository();
+       //bookRep = new BookRepository();
 
-       if(bookRep.UpdateBook(book)){
+       if(bookDao.UpdateBook(book)){
            onActionBtnClear(actionEvent);
        }
     }
 
     public void onActionBtnDelete(ActionEvent actionEvent) throws IOException {
         int id = splitId(txtBookId.getText(),"B");
-        BookRepository bookRepo = new BookRepository();
-        Book book =bookRepo.GetBook(id);
+        //BookRepository bookRepo = new BookRepository();
+        Book book =bookDao.GetBook(id);
 
-         bookRepo = new BookRepository();
-        if(bookRepo.DeleteBook(book)){
+         //bookRepo = new BookRepository();
+        if(bookDao.DeleteBook(book)){
             onActionBtnClear(actionEvent);
         }
     }
 
     public void onActionBookId(ActionEvent actionEvent) throws IOException {
         int id = splitId(txtBookId.getText(),"B");
-        BookRepository bookRepo = new BookRepository();
-        Book book = bookRepo.GetBook(id);
+        //BookRepository bookRepo = new BookRepository();
+        Book book = bookDao.GetBook(id);
 
         txtBookId.setText(modifyId(book.getBookId(), "B"));
         txtGenre.setText(book.getGenre());

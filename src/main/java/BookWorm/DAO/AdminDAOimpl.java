@@ -1,4 +1,4 @@
-package BookWorm.Repository;
+package BookWorm.DAO;
 
 import BookWorm.Config.SessionFactoryConfig;
 import BookWorm.Entity.Admin;
@@ -10,16 +10,12 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class AdminRepository {
-    private final Session session;
+public class AdminDAOimpl implements AdminDAO {
 
-    public AdminRepository() throws IOException {
-        session= SessionFactoryConfig
-                .getInstance()
-                .getSession();
-    }
 
-    public int  saveAdmin(Admin admin){
+    @Override
+    public int saveAdmin(Admin admin) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         try {
             int adminId = (int) session.save(admin);
@@ -35,7 +31,9 @@ public class AdminRepository {
         }
     }
 
-    public Admin getAdmin(int id){
+    @Override
+    public Admin getAdmin(int id) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         try{
             Admin admin = session.get(Admin.class,id);
             session.close();
@@ -46,7 +44,9 @@ public class AdminRepository {
         }
     }
 
-    public boolean UpdateAdmin(Admin ad){
+    @Override
+    public boolean UpdateAdmin(Admin ad) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try{
             session.update(ad);
@@ -61,17 +61,19 @@ public class AdminRepository {
         }
     }
 
-    //jpql - java persistance query language
-    public List<Admin> getAllAdmin(){
+    @Override
+    public List<Admin> getAllAdmin() throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         String sql = "SELECT C FROM Admin As C";
         Query query = session.createQuery(sql);
         List list = query.list();
         session.close();
         return list;
-
     }
 
-    public List<AdminProjection> getAdminProjection() {
+    @Override
+    public List<AdminProjection> getAdminProjection() throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         String sql = "SELECT\n" +
                 "new BookWorm.projection.AdminProjection(C.AdminId,C.AdminName, C.Password,C.Email)\n" +
                 "FROM Admin AS C";

@@ -1,4 +1,4 @@
-package BookWorm.Tm;
+package BookWorm.DTO.TM;
 
 import javafx.scene.control.Button;
 

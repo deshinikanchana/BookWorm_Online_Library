@@ -1,11 +1,11 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.AdminDAO;
+import BookWorm.DAO.AdminDAOimpl;
 import BookWorm.Entity.Admin;
-import BookWorm.Repository.AdminRepository;
 import BookWorm.projection.AdminProjection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -24,12 +24,13 @@ public class AdminLoginFormController {
 
     public static Admin CurrentAdmin;
 
+    private AdminDAO adminDao = new AdminDAOimpl();
 
 
     public void initialize() throws IOException {
 
-        AdminRepository adrep = new AdminRepository();
-        List<Admin> admins = adrep.getAllAdmin();
+        //AdminRepository adrep = new AdminRepository();
+        List<Admin> admins = adminDao.getAllAdmin();
         if(admins.size() == 1){
             hyperLinkNewAdmin.setDisable(true);
         }else{
@@ -60,9 +61,9 @@ public class AdminLoginFormController {
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
         if((txtUserName.getText()!= null) & (pwFeildPassword.getText()!= null)){
             String password = pwFeildPassword.getText();
-            AdminRepository adRep = new AdminRepository();
+            //AdminRepository adRep = new AdminRepository();
 
-            List<AdminProjection> adminProj = adRep.getAdminProjection();
+            List<AdminProjection> adminProj = adminDao.getAdminProjection();
             for (AdminProjection projection : adminProj) {
                 if (projection.getName().equals(txtUserName.getText())) {
                     if (projection.getPw().equals(password)) {

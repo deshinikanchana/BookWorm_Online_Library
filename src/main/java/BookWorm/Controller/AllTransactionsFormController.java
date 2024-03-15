@@ -1,8 +1,9 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.TransactionDAO;
+import BookWorm.DAO.TransactionDAOimpl;
 import BookWorm.Entity.BookTransaction;
-import BookWorm.Repository.TransactionRepository;
-import BookWorm.Tm.TransactionTm;
+import BookWorm.DTO.TM.TransactionTm;
 import BookWorm.embedded.TransactionPK;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,7 @@ public class AllTransactionsFormController {
     public TextField txtUserId;
     public AnchorPane root;
 
+    public TransactionDAO transDao = new TransactionDAOimpl();
     public void initialize() throws IOException {
        loadAllTransactions();
         setCellValueFactory();
@@ -47,8 +49,8 @@ public class AllTransactionsFormController {
 
     private void loadAllTransactions() throws IOException {
         try {
-            TransactionRepository transRep = new TransactionRepository();
-            List<BookTransaction> transList = transRep.GetAllTransactions();
+           // TransactionRepository transRep = new TransactionRepository();
+            List<BookTransaction> transList = transDao.GetAllTransactions();
 
             ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
             for(BookTransaction btr : transList){
@@ -88,8 +90,8 @@ public class AllTransactionsFormController {
     }
 
     private void UpdateTransaction(TransactionPK pk, Timestamp borrowedDate) throws IOException {
-        TransactionRepository transRepo = new TransactionRepository();
-        List<BookTransaction> list = transRepo.GetAllTransactions();
+       // TransactionRepository transRepo = new TransactionRepository();
+        List<BookTransaction> list = transDao.GetAllTransactions();
         BookTransaction btr = new BookTransaction();
         for(BookTransaction myBook:list){
             if(myBook.getBorrowedDate().equals(borrowedDate) & (myBook.getTransactionPk().getUserId() == pk.getUserId() & (myBook.getTransactionPk().getBookId() == pk.getBookId()))){
@@ -98,8 +100,8 @@ public class AllTransactionsFormController {
         }
         btr.setStatus("Available");
 
-        transRepo = new TransactionRepository();
-        if(transRepo.UpdateTransaction(btr)){
+        //transRepo = new TransactionRepository();
+        if(transDao.UpdateTransaction(btr)){
             new Alert(Alert.AlertType.CONFIRMATION, "Transaction Updated !!!").show();
             loadAllTransactions();
         }
@@ -110,8 +112,8 @@ public class AllTransactionsFormController {
         ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
 
         try {
-            TransactionRepository tr = new TransactionRepository();
-            List<BookTransaction> btr = tr.GetAllTransactions();
+            //TransactionRepository tr = new TransactionRepository();
+            List<BookTransaction> btr = transDao.GetAllTransactions();
 
             List<BookTransaction> book = new ArrayList<>();
             for (BookTransaction Btr : btr) {
@@ -175,8 +177,8 @@ tblTransactions.setItems(obList);
         ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
 
         try {
-            TransactionRepository tr = new TransactionRepository();
-            List<BookTransaction> btr = tr.GetAllTransactions();
+           // TransactionRepository tr = new TransactionRepository();
+            List<BookTransaction> btr = transDao.GetAllTransactions();
 
             List<BookTransaction> usr = new ArrayList<>();
             for (BookTransaction Btr : btr) {
@@ -221,7 +223,7 @@ tblTransactions.setItems(obList);
     }
 
     public void onActionExpiredUsers(ActionEvent actionEvent) throws IOException {
-        TransactionRepository trans = new TransactionRepository();
+        //TransactionRepository trans = new TransactionRepository();
         System.out.println("Hello All transactions 217 line eka yko mee");
 
     }

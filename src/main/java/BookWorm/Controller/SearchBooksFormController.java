@@ -1,10 +1,12 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.BookDAO;
+import BookWorm.DAO.BookDAOimpl;
+import BookWorm.DAO.TransactionDAO;
+import BookWorm.DAO.TransactionDAOimpl;
 import BookWorm.Entity.Book;
 import BookWorm.Entity.BookTransaction;
-import BookWorm.Repository.BookRepository;
-import BookWorm.Repository.TransactionRepository;
-import BookWorm.Tm.SearchBookTm;
+import BookWorm.DTO.TM.SearchBookTm;
 import BookWorm.embedded.TransactionPK;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -32,6 +34,9 @@ public class SearchBooksFormController {
 
     public AnchorPane root;
 
+    public BookDAO bookDao = new BookDAOimpl();
+
+    public TransactionDAO trDao = new TransactionDAOimpl();
     public void initialize() throws IOException {
         loadAllBooks();
         setCellValuefactory();
@@ -51,8 +56,8 @@ public class SearchBooksFormController {
     private void loadAllBooks() throws IOException {
         ObservableList<SearchBookTm> obList = FXCollections.observableArrayList();
         try {
-            BookRepository br = new BookRepository();
-            List<Book> bookList = br.getAllBooks();
+            //BookRepository br = new BookRepository();
+            List<Book> bookList = bookDao.getAllBooks();
 
             for (Book book : bookList) {
                 Button btn = new Button("Borrow");
@@ -92,19 +97,19 @@ public class SearchBooksFormController {
 
     private void addTransaction(Book book) throws IOException {
 
-        TransactionRepository trans = new TransactionRepository();
+        //TransactionRepository trans = new TransactionRepository();
         BookTransaction bookTr = new BookTransaction(new TransactionPK(currentUser.getUserId(), book.getBookId()),"Not Returned",currentUser,book);
-        trans.SaveTransaction(bookTr);
+        trDao.SaveTransaction(bookTr);
         onActionBtnClear(new ActionEvent());
     }
 
     private void updateStatus(Book bookorg) throws IOException {
-        BookRepository bookrepo = new BookRepository();
-        Book book = bookrepo.GetBook(bookorg.getBookId());
+        //BookRepository bookrepo = new BookRepository();
+        Book book = bookDao.GetBook(bookorg.getBookId());
         book.setAvailabilityStatus("Borrowed");
 
-        bookrepo = new BookRepository();
-       if(bookrepo.UpdateBook(book)){
+        //bookrepo = new BookRepository();
+       if(bookDao.UpdateBook(book)){
            onActionBtnClear(new ActionEvent());
        }
          }
@@ -126,8 +131,8 @@ public class SearchBooksFormController {
     public void onActionBookName(ActionEvent actionEvent) throws IOException {
         ObservableList<SearchBookTm> obList = FXCollections.observableArrayList();
         try {
-            BookRepository br = new BookRepository();
-            List<Book> bookList = br.getAllBooks();
+          //  BookRepository br = new BookRepository();
+            List<Book> bookList = bookDao.getAllBooks();
             for(Book bo:bookList){
                 if(bo.getTitle().equals(txtBookName.getText())){
                     Button btn = new Button("Borrow");
@@ -172,8 +177,8 @@ public class SearchBooksFormController {
     public void onActionAuthor(ActionEvent actionEvent) {
         ObservableList<SearchBookTm> obList = FXCollections.observableArrayList();
         try {
-            BookRepository br = new BookRepository();
-            List<Book> bookList = br.getAllBooks();
+            //BookRepository br = new BookRepository();
+            List<Book> bookList = bookDao.getAllBooks();
             for(Book bo:bookList){
                 if(bo.getAuthor().equals(txtAuthor.getText())){
                     Button btn = new Button("Borrow");

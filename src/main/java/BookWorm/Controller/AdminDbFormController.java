@@ -1,9 +1,11 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.BookDAO;
+import BookWorm.DAO.BookDAOimpl;
+import BookWorm.DAO.UserDAO;
+import BookWorm.DAO.UserDAOimpl;
 import BookWorm.Entity.Book;
 import BookWorm.Entity.User;
-import BookWorm.Repository.BookRepository;
-import BookWorm.Repository.UserRepository;
 import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,9 @@ public class AdminDbFormController {
     public Label lblUsersCount;
     public Label lblAdminName;
 
+    private UserDAO Udao = new UserDAOimpl();
+    private BookDAO bookDao = new BookDAOimpl();
+
     private Stage stage = new Stage();
 
     public void initialize() throws IOException {
@@ -46,12 +51,12 @@ public class AdminDbFormController {
         timer.start();
         lblDate.setText(String.valueOf(LocalDate.now()));
 
-        UserRepository userRepo = new UserRepository();
-        List<User> userList = userRepo.getAllUsers();
+
+        List<User> userList = Udao.getAllUsers();
         lblUsersCount.setText(String.valueOf(userList.size()));
 
-        BookRepository bookRepo = new BookRepository();
-        List<Book> bookList = bookRepo.getAllBooks();
+        //BookRepository bookRepo = new BookRepository();
+        List<Book> bookList = bookDao.getAllBooks();
         lblBooksCount.setText(String.valueOf(bookList.size()));
     }
 

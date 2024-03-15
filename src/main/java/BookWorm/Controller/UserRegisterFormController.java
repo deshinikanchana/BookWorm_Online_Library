@@ -1,9 +1,8 @@
 package BookWorm.Controller;
 
-import BookWorm.Entity.Admin;
+import BookWorm.DAO.UserDAO;
+import BookWorm.DAO.UserDAOimpl;
 import BookWorm.Entity.User;
-import BookWorm.Repository.AdminRepository;
-import BookWorm.Repository.UserRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,6 +25,7 @@ public class UserRegisterFormController {
     public PasswordField pwFieldPw;
     public AnchorPane root;
 
+    public UserDAO userDao = new UserDAOimpl();
     public void onActionBtnClear(ActionEvent actionEvent) {
         txtPw.setText("");
         txtConfirmPw.setText("");
@@ -39,8 +39,8 @@ public class UserRegisterFormController {
 
         if(pwFieldPw.getText().equals(pwFieldConfirmPw.getText())) {
             User user = new User(1, txtName.getText(), txtEmail.getText(), pwFieldConfirmPw.getText());
-            UserRepository repo = new UserRepository();
-            repo.SaveUser(user);
+           // UserRepository repo = new UserRepository();
+            userDao.SaveUser(user);
             onActionBtnClear(actionEvent);
             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/User_Login_form.fxml"));
             Stage stage = (Stage) root.getScene().getWindow();

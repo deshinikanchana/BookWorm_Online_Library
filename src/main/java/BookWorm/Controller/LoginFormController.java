@@ -1,12 +1,10 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.UserDAO;
+import BookWorm.DAO.UserDAOimpl;
 import BookWorm.Entity.User;
-import BookWorm.Repository.AdminRepository;
-import BookWorm.Repository.UserRepository;
-import BookWorm.projection.AdminProjection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +23,7 @@ public class LoginFormController {
     public AnchorPane root;
     public static User currentUser;
 
+    public UserDAO userDao =new UserDAOimpl();
 
     public void onActionShowPw(ActionEvent actionEvent) {
         if(showPw.isSelected()){
@@ -52,9 +51,9 @@ public class LoginFormController {
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
         if((txtUserName.getText()!= null) & (pwFieldPassword.getText()!= null)){
             String password = pwFieldPassword.getText();
-            UserRepository userRepo = new UserRepository();
+            //UserRepository userRepo = new UserRepository();
 
-            List<User> userList = userRepo.getAllUsers();
+            List<User> userList = userDao.getAllUsers();
             for (User user : userList) {
                 if (user.getUserName().equals(txtUserName.getText())) {
                     if (user.getPasssword().equals(password)) {

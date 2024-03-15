@@ -1,8 +1,10 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.BranchDAO;
+import BookWorm.DAO.BranchDAOimpl;
+import BookWorm.DTO.BranchDto;
 import BookWorm.Entity.Branch;
-import BookWorm.Repository.BranchRepository;
-import BookWorm.Tm.BranchTm;
+import BookWorm.DTO.TM.BranchTm;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +31,8 @@ public class BranchesFormController {
     public AnchorPane root;
     public JFXButton btnDelete;
 
+    public BranchDAO brDao = new BranchDAOimpl();
+
     public void initialize() throws IOException {
         loadAllBranches();
         setCellValueFactory();
@@ -35,10 +40,15 @@ public class BranchesFormController {
     }
 
     private void setBranchId() throws IOException {
-        BranchRepository br = new BranchRepository();
-        List<Branch> brList = br.getAllBranches();
+       // BranchRepository br = new BranchRepository();
+        List<BranchDto> brList = brDao.GetAll();
+        List<Branch> branchList = new ArrayList<>();
+        for(BranchDto dto:brList){
+            branchList.add(new Branch(dto.getBranchId(),dto.getAddress(),dto.getEmail(),dto.getAdmin(),dto.getBookList()));
+        }
+
         int id = 0;
-        for(Branch branch : brList) {
+        for(Branch branch : branchList) {
             id = branch.getBranchId();
             id++;
         }
@@ -54,9 +64,12 @@ public class BranchesFormController {
     private void loadAllBranches() throws IOException {
         ObservableList<BranchTm> obList = FXCollections.observableArrayList();
         try {
-            BranchRepository br = new BranchRepository();
-            List<Branch> branchList = br.getAllBranches();
-
+            //BranchRepository br = new BranchRepository();
+            List<BranchDto> Br = brDao.GetAll();
+            List<Branch> branchList = new ArrayList<>();
+            for(BranchDto dto:Br){
+                branchList.add(new Branch(dto.getBranchId(),dto.getAddress(),dto.getEmail(),dto.getAdmin(),dto.getBookList()));
+            }
             for(Branch branch:branchList){
                 obList.add(
                         new BranchTm(
@@ -89,9 +102,9 @@ public class BranchesFormController {
 
     public void onActionBtnAdd(ActionEvent actionEvent) throws IOException {
         if((txtBranchId.getText() != null) & (txtLocation.getText() != null)) {
-           BranchRepository br = new BranchRepository();
+           //BranchRepository br = new BranchRepository();
            Branch branch = new Branch(splitId(txtBranchId.getText(),"Br"),txtLocation.getText(),txtEmail.getText(),CurrentAdmin);
-                br.SaveBranch(branch);
+                brDao.Save(new BranchDto(branch.getBranchId(),branch.getAddress(),branch.getEmail(),branch.getAdmin(),branch.getBookList()));
                 onActionBtnClear(actionEvent);
                 return;
         }
@@ -108,13 +121,13 @@ public class BranchesFormController {
 
     public void onActionBtnUpdate(ActionEvent actionEvent) throws IOException {
         if((txtBranchId.getText()!= null) & (txtLocation.getText()!= null)){
-            BranchRepository br = new BranchRepository();
-            Branch branch = br.GetBranch(splitId(txtBranchId.getText(), "Br"));
+           // BranchRepository br = new BranchRepository();
+            BranchDto branch = brDao.Get(splitId(txtBranchId.getText(), "Br"));
             branch.setAddress(txtLocation.getText());
             branch.setEmail(txtEmail.getText());
 
-            br = new BranchRepository();
-            if(br.UpdateBranch(branch)){
+            //br = new BranchRepository();
+            if(brDao.Update(branch)){
                 onActionBtnClear(actionEvent);
             }
         }
@@ -122,8 +135,8 @@ public class BranchesFormController {
 
     public void onActionBtnDelete(ActionEvent actionEvent) throws IOException {
         int id = splitId(txtBranchId.getText(), "Br");
-        BranchRepository br  = new BranchRepository();
-        Branch branch = br.GetBranch(id);
+        //BranchRepository br  = new BranchRepository();
+        BranchDto branch = brDao.Get(id);
 
         btnDelete.setOnAction((e) -> {
             ButtonType yes = new ButtonType("yes", ButtonBar.ButtonData.OK_DONE);
@@ -133,8 +146,8 @@ public class BranchesFormController {
 
             if(type.orElse(no) == yes) {
                 try {
-                    BranchRepository Br = new BranchRepository();
-                    Br.DeleteBranch(branch);
+                   // BranchRepository Br = new BranchRepository();
+                    brDao.Delete(branch);
                     onActionBtnClear(actionEvent);
                 } catch (IOException ex) {
                     ex.printStackTrace();
@@ -147,8 +160,8 @@ public class BranchesFormController {
     public void onActionBranchId(ActionEvent actionEvent) throws IOException {
         int id = splitId(txtBranchId.getText(),"Br");
 
-        BranchRepository br = new BranchRepository();
-        Branch branch = br.GetBranch(splitId(txtBranchId.getText(), "Br"));
+        //BranchRepository br = new BranchRepository();
+        BranchDto branch = brDao.Get(splitId(txtBranchId.getText(), "Br"));
 
         txtBranchId.setText(modifyId(branch.getBranchId(), "Br"));
         txtLocation.setText(branch.getAddress());

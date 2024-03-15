@@ -1,7 +1,8 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.AdminDAO;
+import BookWorm.DAO.AdminDAOimpl;
 import BookWorm.Entity.Admin;
-import BookWorm.Repository.AdminRepository;
 import BookWorm.projection.AdminProjection;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
@@ -23,22 +24,24 @@ public class AdminSettingFormController {
     public AnchorPane root;
     public Label lblAdminName;
 
+    public AdminDAO adminDao = new AdminDAOimpl();
+
     public void initialize() throws IOException {
         lblAdminName.setText(CurrentAdmin.getAdminName());
     }
 
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
-        AdminRepository adRepo = new AdminRepository();
+       // AdminRepository adRepo = new AdminRepository();
         if(pwFieldPw.getText() != null){
-            List<AdminProjection> adminProj = adRepo.getAdminProjection();
+            List<AdminProjection> adminProj = adminDao.getAdminProjection();
             for (AdminProjection projection : adminProj) {
                 if (projection.getName().equals(CurrentAdmin.getAdminName())) {
                     if (projection.getPw().equals(pwFieldPw.getText())) {
                         if((pwFieldConfirmPw.getText() != null) & (pwFieldNewPw.getText().equals(pwFieldConfirmPw.getText()))) {
                             Admin admin = new Admin(projection.getId(), projection.getName(), projection.getEmail(), pwFieldConfirmPw.getText());
-                            adRepo = new AdminRepository();
+                            //adRepo = new AdminRepository();
 
-                            if( adRepo.UpdateAdmin(admin)){
+                            if( adminDao.UpdateAdmin(admin)){
                                onActionBtnClear(actionEvent);
                                return;
                            }

@@ -1,4 +1,4 @@
-package BookWorm.Tm;
+package BookWorm.DTO.TM;
 
 public class BookTm {
     private String BookId;

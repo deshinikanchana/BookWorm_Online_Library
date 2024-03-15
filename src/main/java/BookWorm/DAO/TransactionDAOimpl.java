@@ -1,4 +1,4 @@
-package BookWorm.Repository;
+package BookWorm.DAO;
 
 import BookWorm.Config.SessionFactoryConfig;
 import BookWorm.Entity.BookTransaction;
@@ -9,16 +9,10 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class TransactionRepository {
-    private final Session session;
-
-    public TransactionRepository() throws IOException {
-        session= SessionFactoryConfig
-                .getInstance()
-                .getSession();
-    }
-
-    public Object  SaveTransaction(BookTransaction bookTransaction){
+public class TransactionDAOimpl implements TransactionDAO{
+    @Override
+    public Object SaveTransaction(BookTransaction bookTransaction) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         try {
             Object transId = (Object) session.save(bookTransaction);
@@ -34,7 +28,9 @@ public class TransactionRepository {
         }
     }
 
-    public BookTransaction GetTransaction(int id){
+    @Override
+    public BookTransaction GetTransaction(int id) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         try{
             BookTransaction trans = session.get(BookTransaction.class,id);
             session.close();
@@ -45,7 +41,9 @@ public class TransactionRepository {
         }
     }
 
-    public boolean UpdateTransaction(BookTransaction trans){
+    @Override
+    public boolean UpdateTransaction(BookTransaction trans) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         try{
             session.update(trans);
@@ -60,15 +58,13 @@ public class TransactionRepository {
         }
     }
 
-
-    //jpql - java persistance query language
-    public List<BookTransaction> GetAllTransactions(){
+    @Override
+    public List<BookTransaction> GetAllTransactions() throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         String sql = "SELECT C FROM BookTransaction As C";
         Query query = session.createQuery(sql);
         List list = query.list();
         session.close();
         return list;
-
     }
-
 }

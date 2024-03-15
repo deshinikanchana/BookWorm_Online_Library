@@ -1,6 +1,7 @@
-package BookWorm.Repository;
+package BookWorm.DAO;
 
 import BookWorm.Config.SessionFactoryConfig;
+import BookWorm.DTO.BranchDto;
 import BookWorm.Entity.Branch;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -9,22 +10,15 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class BranchRepository {
-
-    private final Session session;
-
-    public BranchRepository() throws IOException {
-        session= SessionFactoryConfig
-                .getInstance()
-                .getSession();
-    }
-
-    public int  SaveBranch(Branch branch){
+public class BranchDAOimpl implements BranchDAO{
+    @Override
+    public int Save(BranchDto dto) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         try {
-            int branchId = (int) session.save(branch);
+            int branchId = (int) session.save(dto);
             transaction.commit();
-            System.out.println("Branch save : " + branch.toString());
+            System.out.println("Branch save : " + dto.toString());
             session.close();
             return branchId;
         }catch (Exception ex){
@@ -35,21 +29,26 @@ public class BranchRepository {
         }
     }
 
-    public Branch GetBranch(int id){
+    @Override
+    public BranchDto Get(int id) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         try{
             Branch branch = session.get(Branch.class,id);
             session.close();
-            return branch;
+            BranchDto dto = new BranchDto(branch.getBranchId(),branch.getAddress(),branch.getEmail(),branch.getAdmin(),branch.getBookList());
+            return dto;
         }catch (Exception e){
             e.printStackTrace();
             throw e;
         }
     }
 
-    public boolean UpdateBranch(Branch branch){
+    @Override
+    public boolean Update(BranchDto dto) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction trans = session.beginTransaction();
         try{
-            session.update(branch);
+            session.update(dto);
             trans.commit();
             session.close();
             return true;
@@ -61,9 +60,12 @@ public class BranchRepository {
         }
     }
 
-    public boolean DeleteBranch(Branch branch){
+    @Override
+    public boolean Delete(BranchDto dto) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction delTrans = session.beginTransaction();
         try{
+            Branch branch = new Branch(dto.getBranchId(),dto.getAddress(),dto.getEmail(),dto.getAdmin(),dto.getBookList());
             session.delete(branch);
             delTrans.commit();
             session.close();
@@ -76,13 +78,14 @@ public class BranchRepository {
         }
     }
 
-    //jpql - java persistance query language
-    public List<Branch> getAllBranches(){
+    @Override
+    public List<BranchDto> GetAll() throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         String sql = "SELECT C FROM Branch As C";
         Query query = session.createQuery(sql);
         List list = query.list();
         session.close();
         return list;
-
     }
+
 }

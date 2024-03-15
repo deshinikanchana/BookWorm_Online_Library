@@ -1,7 +1,7 @@
-package BookWorm.Repository;
+package BookWorm.DAO;
 
 import BookWorm.Config.SessionFactoryConfig;
-import BookWorm.Entity.Book;
+import BookWorm.Entity.User;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -9,47 +9,44 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class BookRepository {
-    private final Session session;
-
-    public BookRepository() throws IOException {
-        session= SessionFactoryConfig
-                .getInstance()
-                .getSession();
-    }
-
-    public int  SaveBook(Book book){
-        Transaction transaction = session.beginTransaction();
+public class UserDAOimpl implements UserDAO{
+    @Override
+    public int SaveUser(User user) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
+        Transaction transaction= session.beginTransaction();
         try {
-            int bookId = (int) session.save(book);
+            int userId = (int) session.save(user);
             transaction.commit();
-            System.out.println("Book save : " + book.toString());
+            System.out.println("User save : " + user.toString());
             session.close();
-            return bookId;
+            return userId;
         }catch (Exception ex){
-            System.out.println("Roll Back wenne ai ? line 30 bookrepo");
-            //transaction.rollback();
+            transaction.rollback();
             session.close();
             ex.printStackTrace();
             return -1;
         }
     }
 
-    public Book GetBook(int id){
+    @Override
+    public User GetUser(int id) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         try{
-            Book book = session.get(Book.class,id);
+            User user = session.get(User.class,id);
             session.close();
-            return book;
+            return user;
         }catch (Exception e){
             e.printStackTrace();
             throw e;
         }
     }
 
-    public boolean UpdateBook(Book book){
+    @Override
+    public boolean UpdateUser(User user) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction trans = session.beginTransaction();
         try{
-            session.update(book);
+            session.update(user);
             trans.commit();
             session.close();
             return true;
@@ -61,10 +58,12 @@ public class BookRepository {
         }
     }
 
-    public boolean DeleteBook(Book book){
+    @Override
+    public boolean DeleteUser(User user) throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction delTrans = session.beginTransaction();
         try{
-            session.delete(book);
+            session.delete(user);
             delTrans.commit();
             session.close();
             return true;
@@ -76,13 +75,13 @@ public class BookRepository {
         }
     }
 
-    //jpql - java persistance query language
-    public List<Book> getAllBooks(){
-        String sql = "SELECT C FROM Book As C";
+    @Override
+    public List<User> getAllUsers() throws IOException {
+        Session session= SessionFactoryConfig.getInstance().getSession();
+        String sql = "SELECT C FROM User As C";
         Query query = session.createQuery(sql);
         List list = query.list();
         session.close();
         return list;
-
     }
 }

@@ -1,7 +1,8 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.AdminDAO;
+import BookWorm.DAO.AdminDAOimpl;
 import BookWorm.Entity.Admin;
-import BookWorm.Repository.AdminRepository;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +28,8 @@ public class AdminNewAccountFormController {
     @FXML
     private AnchorPane root;
 
+    private AdminDAO adminDao = new AdminDAOimpl();
+
     public void onActionBtnClear(ActionEvent actionEvent) {
         txtPw.setText("");
         txtConfirmPw.setText("");
@@ -40,8 +43,8 @@ public class AdminNewAccountFormController {
 
         if(pwFieldPw.getText().equals(pwFieldConfirmPw.getText())) {
             Admin ad = new Admin(1, txtName.getText(), txtEmail.getText(), pwFieldConfirmPw.getText());
-            AdminRepository repo = new AdminRepository();
-            repo.saveAdmin(ad);
+            //AdminRepository repo = new AdminRepository();
+            adminDao.saveAdmin(ad);
             onActionBtnClear(actionEvent);
             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Admin_login_form.fxml"));
             Stage stage = (Stage) root.getScene().getWindow();

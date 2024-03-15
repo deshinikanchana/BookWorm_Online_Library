@@ -1,6 +1,5 @@
-package BookWorm.Tm;
+package BookWorm.DTO.TM;
 
-import java.awt.*;
 import javafx.scene.control.Button;
 
 public class SearchBookTm {

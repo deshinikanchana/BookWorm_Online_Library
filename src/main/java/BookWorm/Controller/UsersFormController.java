@@ -1,8 +1,9 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.UserDAO;
+import BookWorm.DAO.UserDAOimpl;
 import BookWorm.Entity.User;
-import BookWorm.Repository.UserRepository;
-import BookWorm.Tm.UserTm;
+import BookWorm.DTO.TM.UserTm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,8 @@ public class UsersFormController {
     public TextField txtUserName;
     public AnchorPane pane;
 
+    public UserDAO userDao = new UserDAOimpl();
+
     public void initialize() throws IOException {
         loadAllUsers();
         setCellValueFactory();
@@ -33,8 +36,8 @@ public class UsersFormController {
     private void loadAllUsers() throws IOException {
         ObservableList<UserTm> obList = FXCollections.observableArrayList();
         try {
-            UserRepository userRepo = new UserRepository();
-            List<User> userList = userRepo.getAllUsers();
+           // UserRepository userRepo = new UserRepository();
+            List<User> userList = userDao.getAllUsers();
 
             for(User us:userList){
                 obList.add(new UserTm(
@@ -60,8 +63,8 @@ public class UsersFormController {
         ObservableList<UserTm> obList = FXCollections.observableArrayList();
         if(txtUserId.getText()!= null) {
             try {
-                UserRepository usr = new UserRepository();
-                List<User> usrList = usr.getAllUsers();
+                //UserRepository usr = new UserRepository();
+                List<User> usrList = userDao.getAllUsers();
 
                 for(User user:usrList){
                     if(user.getUserId()== splitId(txtUserId.getText(), "U")){
@@ -99,8 +102,8 @@ public class UsersFormController {
         ObservableList<UserTm> obList = FXCollections.observableArrayList();
         if(txtUserName.getText()!= null) {
             try {
-                UserRepository usr = new UserRepository();
-                List<User> usrList = usr.getAllUsers();
+                //UserRepository usr = new UserRepository();
+                List<User> usrList = userDao.getAllUsers();
 
                 for(User user:usrList){
                     if(user.getUserName().equals(txtUserName.getText())){

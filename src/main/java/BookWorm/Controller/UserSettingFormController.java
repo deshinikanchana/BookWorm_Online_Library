@@ -1,7 +1,8 @@
 package BookWorm.Controller;
 
+import BookWorm.DAO.UserDAO;
+import BookWorm.DAO.UserDAOimpl;
 import BookWorm.Entity.User;
-import BookWorm.Repository.UserRepository;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -31,22 +32,24 @@ public class UserSettingFormController {
     public AnchorPane root;
     public JFXButton btnDeleteAcc;
 
+    public UserDAO userDao = new UserDAOimpl();
+
     public void initialize(){
         lblUserName.setText(currentUser.getUserName());
 
     }
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
-        UserRepository userRepo = new UserRepository();
+       // UserRepository userRepo = new UserRepository();
         if(pwFieldPw.getText() != null){
-            List<User> userList = userRepo.getAllUsers();
+            List<User> userList = userDao.getAllUsers();
             for (User us : userList) {
                 if (us.getUserName().equals(currentUser.getUserName())) {
                     if (us.getPasssword().equals(pwFieldPw.getText())) {
                         if((pwFieldConfirmPw.getText() != null) & (pwFieldNewPw.getText().equals(pwFieldConfirmPw.getText()))) {
                             User usr = new User(us.getUserId(),us.getUserName(),us.getEmail(),pwFieldConfirmPw.getText());
-                            userRepo = new UserRepository();
+                           // userRepo = new UserRepository();
 
-                            if( userRepo.UpdateUser(usr)){
+                            if( userDao.UpdateUser(usr)){
                                 onActionBtnClear(actionEvent);
                                 return;
                             }
@@ -117,10 +120,10 @@ public class UserSettingFormController {
 
                 if(type.orElse(no) == yes) {
                     try {
-                        UserRepository userRepo = new UserRepository();
-                        User usr = userRepo.GetUser(currentUser.getUserId());
+                      //  UserRepository userRepo = new UserRepository();
+                        User usr = userDao.GetUser(currentUser.getUserId());
 
-                        if(userRepo.DeleteUser(usr)){
+                        if(userDao.DeleteUser(usr)){
                             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/User_Login_form.fxml"));
                             Stage stage = (Stage) root.getScene().getWindow();
 
