@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="pane" prefHeight="864.0" prefWidth="1536.0" style="-fx-background-color: #99a3bfd8;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.UsersFormController">
+   <children>
+      <TableView fx:id="tblUsers" layoutX="124.0" layoutY="396.0" prefHeight="365.0" prefWidth="1288.0">
+        <columns>
+          <TableColumn fx:id="colUserId" prefWidth="240.0" text="User Id" />
+          <TableColumn fx:id="colUserName" prefWidth="519.0" text="User Name" />
+            <TableColumn fx:id="colEmail" prefWidth="528.3333435058594" text="Email" />
+        </columns>
+      </TableView>
+      <ImageView fitHeight="739.0" fitWidth="937.0" layoutX="404.0" layoutY="111.0" opacity="0.1" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assest/logo new one.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="txtUserId" layoutX="324.0" layoutY="175.0" onAction="#onActionUserId" prefHeight="64.0" prefWidth="356.0" promptText="Search User By User Id">
+         <font>
+            <Font name="DejaVu Sans Mono Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtUserName" layoutX="856.0" layoutY="175.0" onAction="#onActionUserName" prefHeight="64.0" prefWidth="356.0" promptText="Search User By Name">
+         <font>
+            <Font name="DejaVu Sans Mono Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Label alignment="CENTER" layoutX="535.0" layoutY="11.0" prefHeight="86.0" prefWidth="440.0" style="-fx-background-color: silver;" text="BookWorm Online Library Users" textFill="#070000">
+         <font>
+            <Font name="CANIS-MAJOR" size="31.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnSearch" alignment="CENTER" buttonType="RAISED" layoutX="621.0" layoutY="316.0" onAction="#onActionBtnSearch" prefHeight="48.0" prefWidth="119.0" style="-fx-background-color: lightgreen;" text="Search" textFill="#070000">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="21.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnClear" alignment="CENTER" buttonType="RAISED" layoutX="798.0" layoutY="316.0" onAction="#onActionBtnClear" prefHeight="48.0" prefWidth="119.0" style="-fx-background-color: orange;" text="Clear" textFill="#070000">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="21.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

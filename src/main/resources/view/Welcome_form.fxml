@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="864.0" prefWidth="1536.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.WelcomeFormController">
+   <children>
+      <ImageView fitHeight="1298.0" fitWidth="2061.0" layoutX="-105.0" layoutY="-74.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assest/login.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbcde4b8" height="769.0" layoutX="725.0" layoutY="163.0" stroke="#00000007" strokeType="INSIDE" width="472.0" />
+      <Label alignment="CENTER" layoutX="831.0" layoutY="266.0" prefHeight="96.0" prefWidth="258.0" text="BookWorm">
+         <font>
+            <Font name="MathJax_Math-BoldItalic" size="42.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="805.0" layoutY="356.0" prefHeight="47.0" prefWidth="311.0" text="Online Library">
+         <font>
+            <Font name="Laksaman Bold" size="24.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="308.0" fitWidth="301.0" layoutX="810.0" layoutY="432.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assest/logo new one.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" layoutX="770.0" layoutY="163.0" prefHeight="96.0" prefWidth="399.0" text="Welcome !!!" textFill="#1748b2">
+         <font>
+            <Font name="Ink Brush Arabic_DEMO Textured" size="67.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnAdminLogin" alignment="CENTER" buttonType="RAISED" layoutX="741.0" layoutY="814.0" onAction="#onActionBtnAdminLogin" prefHeight="44.0" prefWidth="139.0" style="-fx-background-color: #b10aff;" text="Admin Login" textFill="#09000d">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnUserLogin" alignment="CENTER" buttonType="RAISED" layoutX="1042.0" layoutY="814.0" onAction="#onActionBtnUserLogin" prefHeight="44.0" prefWidth="139.0" style="-fx-background-color: #b10aff;" text="User Login" textFill="#09000d">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+   </children>
+</AnchorPane>

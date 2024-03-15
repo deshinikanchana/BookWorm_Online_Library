@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.UserDbFormController">
+
+    <children>
+        <ImageView fitHeight="1478.0" fitWidth="2158.0" layoutX="-236.0" layoutY="-134.0" opacity="0.92" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/lib.jpg" />
+            </image>
+        </ImageView>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#131e65b5" height="1078.0" layoutX="-5.0" stroke="TRANSPARENT" strokeType="INSIDE" width="321.0" />
+        <ImageView fitHeight="118.0" fitWidth="130.0" layoutX="17.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/user 2.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lblName" alignment="CENTER" layoutX="132.0" layoutY="65.0" prefHeight="43.0" prefWidth="171.0" textFill="WHITE">
+            <font>
+                <Font name="DejaVu Serif Bold" size="24.0" />
+            </font>
+        </Label>
+        <Line endX="158.33334350585938" layoutX="148.0" layoutY="645.0" startX="-137.6666717529297" strokeWidth="5.0">
+            <stroke>
+                <LinearGradient cycleMethod="REFLECT" endX="0.3952380952380953" endY="1.0" startX="0.46666666666666673">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color red="0.9832802414894104" green="0.10000000149011612" blue="1.0" opacity="0.7300000190734863" />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="1.0" green="1.0" blue="1.0" opacity="0.7099999785423279" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </LinearGradient>
+            </stroke>
+        </Line>
+        <Line endX="158.33334350585938" layoutX="148.0" layoutY="215.0" startX="-137.6666717529297" strokeWidth="5.0">
+            <stroke>
+                <LinearGradient cycleMethod="REFLECT" endX="0.3952380952380953" endY="1.0" startX="0.46666666666666673">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color red="0.9832802414894104" green="0.10000000149011612" blue="1.0" opacity="0.7300000190734863" />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="1.0" green="1.0" blue="1.0" opacity="0.7099999785423279" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </LinearGradient>
+            </stroke>
+        </Line>
+        <Line endX="158.33334350585938" layoutX="148.0" layoutY="430.0" startX="-137.6666717529297" strokeWidth="5.0">
+            <stroke>
+                <LinearGradient cycleMethod="REFLECT" endX="0.3952380952380953" endY="1.0" startX="0.46666666666666673">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color red="0.9832802414894104" green="0.10000000149011612" blue="1.0" opacity="0.7300000190734863" />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="1.0" green="1.0" blue="1.0" opacity="0.7099999785423279" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </LinearGradient>
+            </stroke>
+        </Line>
+        <Line endX="158.33334350585938" layoutX="148.0" layoutY="860.0" startX="-137.6666717529297" strokeWidth="5.0">
+            <stroke>
+                <LinearGradient cycleMethod="REFLECT" endX="0.3952380952380953" endY="1.0" startX="0.46666666666666673">
+                    <stops>
+                        <Stop>
+                            <color>
+                                <Color red="0.9832802414894104" green="0.10000000149011612" blue="1.0" opacity="0.7300000190734863" />
+                            </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                            <color>
+                                <Color red="1.0" green="1.0" blue="1.0" opacity="0.7099999785423279" />
+                            </color>
+                        </Stop>
+                    </stops>
+                </LinearGradient>
+            </stroke>
+        </Line>
+        <ImageView fitHeight="113.0" fitWidth="101.0" layoutX="17.0" layoutY="266.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/Book.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="113.0" fitWidth="101.0" layoutX="16.0" layoutY="480.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/trans.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="113.0" fitWidth="101.0" layoutX="16.0" layoutY="694.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/setting 1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="108.0" fitWidth="101.0" layoutX="15.0" layoutY="917.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/logout.png" />
+            </image>
+        </ImageView>
+        <Label alignment="CENTER" layoutX="132.0" layoutY="277.0" prefHeight="79.0" prefWidth="154.0" text="Search Books" textAlignment="CENTER" textFill="#dde1df" wrapText="true">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="25.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="127.0" layoutY="478.0" prefHeight="103.0" prefWidth="165.0" text="My Transactions" textAlignment="CENTER" textFill="#dde1df" wrapText="true">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="25.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="141.0" layoutY="726.0" prefHeight="43.0" prefWidth="154.0" text="Settings" textFill="#dde1df">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="25.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="132.0" layoutY="946.0" prefHeight="43.0" prefWidth="154.0" text="Log Out" textFill="#dde1df">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="25.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="btnSearchBooks" buttonType="RAISED" layoutX="12.0" layoutY="253.0" onAction="#OnActionBtnSearchBooks" prefHeight="128.0" prefWidth="292.0" text=" " textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnMyTransactions" buttonType="RAISED" layoutX="12.0" layoutY="466.0" onAction="#onActionBtnMyTransactions" prefHeight="128.0" prefWidth="292.0" text=" " textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnSetting" buttonType="RAISED" layoutX="12.0" layoutY="681.0" onAction="#onActionBtnSetting" prefHeight="128.0" prefWidth="292.0" text=" " textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnLogout" buttonType="RAISED" layoutX="12.0" layoutY="904.0" onAction="#onActionBtnLogout" prefHeight="128.0" prefWidth="292.0" text=" " textFill="WHITE">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <ImageView fitHeight="71.0" fitWidth="82.0" layoutX="935.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/calender 1.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="71.0" fitWidth="71.0" layoutX="1470.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/clock 2.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lblDate" alignment="CENTER" layoutX="1043.0" layoutY="19.0" prefHeight="72.0" prefWidth="222.0" style="-fx-background-color: #c4c4c4;" textFill="#070000">
+            <font>
+                <Font name="DejaVu Serif Bold" size="25.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblTime" alignment="CENTER" layoutX="1578.0" layoutY="17.0" prefHeight="72.0" prefWidth="232.0" style="-fx-background-color: #c4c4c4;" textFill="#070000">
+            <font>
+                <Font name="DejaVu Serif Bold" size="25.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="72.0" fitWidth="71.0" layoutX="401.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/warn.png" />
+            </image>
+        </ImageView>
+        <Label fx:id="lblWarningBooksReturn" alignment="CENTER" layoutX="507.0" layoutY="14.0" prefHeight="72.0" prefWidth="222.0" style="-fx-background-color: #c4c4c4;" textFill="#070000eb">
+            <font>
+                <Font name="DejaVu Serif Bold" size="25.0" />
+            </font>
+        </Label>
+      <AnchorPane fx:id="userPane" layoutX="358.0" layoutY="123.0" prefHeight="864.0" prefWidth="1536.0" />
+    </children>
+</AnchorPane>

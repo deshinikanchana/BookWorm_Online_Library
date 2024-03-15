@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.AdminLoginFormController">
+
+    <children>
+        <ImageView fitHeight="1512.0" fitWidth="2195.0" layoutX="-151.0" layoutY="-280.0" opacity="0.8" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/library 10.jpg" />
+            </image>
+        </ImageView>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d4d4d4d6" height="563.0" layoutX="448.0" layoutY="376.0" stroke="BLACK" strokeType="INSIDE" width="1028.0" />
+        <ImageView fitHeight="300.0" fitWidth="358.0" layoutX="806.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/logo new one.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="664.0" layoutY="590.0" prefHeight="40.0" prefWidth="128.0" text="Name">
+            <font>
+                <Font name="DejaVu Serif Bold" size="15.0" />
+            </font>
+        </Label>
+        <Label layoutX="664.0" layoutY="657.0" prefHeight="40.0" prefWidth="128.0" text="Password :">
+            <font>
+                <Font name="DejaVu Serif Bold" size="15.0" />
+            </font>
+        </Label>
+        <Label alignment="CENTER" layoutX="882.0" layoutY="376.0" prefHeight="41.0" prefWidth="143.0" text="Log In" textFill="#070000">
+            <font>
+                <Font name="DejaVu Serif Bold" size="30.0" />
+            </font>
+        </Label>
+        <ImageView fitHeight="122.0" fitWidth="121.0" layoutX="901.0" layoutY="437.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/admin.png" />
+            </image>
+        </ImageView>
+        <CheckBox fx:id="showPw" layoutX="818.0" layoutY="714.0" mnemonicParsing="false" onAction="#onActionShowPw" prefHeight="30.0" prefWidth="128.0" text="Show Password" />
+        <TextField fx:id="txtUserName" layoutX="811.0" layoutY="584.0" onAction="#onActiontxtUserName" prefHeight="52.0" prefWidth="292.0">
+            <font>
+                <Font size="20.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <TextField fx:id="txtPassword" layoutX="811.0" layoutY="651.0" prefHeight="52.0" prefWidth="292.0">
+            <font>
+                <Font size="20.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <PasswordField fx:id="pwFeildPassword" layoutX="811.0" layoutY="651.0" prefHeight="52.0" prefWidth="292.0" />
+        <JFXButton fx:id="btnSubmit" alignment="CENTER" buttonType="RAISED" layoutX="833.0" layoutY="759.0" onAction="#onActionBtnSubmit" prefHeight="41.0" prefWidth="99.0" style="-fx-background-color: lightgreen;" text="Submit">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="15.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnClear" alignment="CENTER" buttonType="RAISED" layoutX="991.0" layoutY="759.0" onAction="#onActionBtnClear" prefHeight="41.0" prefWidth="99.0" style="-fx-background-color: lightblue;" text="Clear">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="15.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <ImageView fitHeight="45.0" fitWidth="55.0" layoutX="463.0" layoutY="395.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/back.png" />
+            </image>
+        </ImageView>
+        <JFXButton fx:id="btnBack" layoutX="459.0" layoutY="397.0" onAction="#onActionBtnBack" prefHeight="41.0" prefWidth="51.0" text=" " />
+      <Line endX="215.0" layoutX="722.0" layoutY="818.0" startX="-268.0" strokeWidth="5.0" />
+      <Line endX="215.0" layoutX="1256.0" layoutY="818.0" startX="-268.0" strokeWidth="5.0" />
+      <Label layoutX="949.0" layoutY="807.0" text="OR">
+         <font>
+            <Font name="FreeSerif Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <Hyperlink fx:id="hyperLinkNewAdmin" alignment="CENTER" layoutX="825.0" layoutY="858.0" onAction="#onActionNewAdmin" prefHeight="45.0" prefWidth="264.0" text="Register As An New Admin" textFill="#2415b2">
+         <font>
+            <Font name="Dyuthi Regular" size="21.0" />
+         </font>
+      </Hyperlink>
+    </children>
+</AnchorPane>

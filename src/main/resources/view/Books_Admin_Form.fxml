@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="864.0" prefWidth="1536.0" style="-fx-background-color: #99a3bfd8;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.BooksAdminFormController">
+
+    <children>
+        <Label alignment="CENTER" layoutX="585.0" layoutY="8.0" prefHeight="86.0" prefWidth="449.0" style="-fx-background-color: silver;" text="BookWorm Online Library Books" textFill="#070000">
+            <font>
+                <Font name="CANIS-MAJOR" size="31.0" />
+            </font>
+        </Label>
+        <TableView fx:id="tblBooks" layoutX="23.0" layoutY="467.0" prefHeight="383.0" prefWidth="1500.0">
+            <columns>
+                <TableColumn fx:id="colBookId" prefWidth="126.0" text="Book Id" />
+            <TableColumn fx:id="colBranchId" prefWidth="182.0" text="Branch Id" />
+                <TableColumn fx:id="colTitle" prefWidth="249.0" text="Title" />
+                <TableColumn fx:id="colGenre" prefWidth="309.0" text="Genre" />
+            <TableColumn fx:id="colAuthor" prefWidth="369.0" text="Author" />
+            <TableColumn fx:id="colAvailability" prefWidth="264.0" text="Availability Status" />
+            </columns>
+        </TableView>
+        <ImageView fitHeight="720.0" fitWidth="717.0" layoutX="475.0" layoutY="130.0" opacity="0.1" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/logo new one.png" />
+            </image>
+        </ImageView>
+        <JFXButton fx:id="btnAdd" alignment="CENTER" buttonType="RAISED" layoutX="334.0" layoutY="374.0" onAction="#onActionBtnAdd" prefHeight="48.0" prefWidth="119.0" style="-fx-background-color: lightgreen;" text="Add" textFill="#070000">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="21.0" />
+            </font>
+        </JFXButton>
+        <JFXButton fx:id="btnClear" alignment="CENTER" buttonType="RAISED" layoutX="1084.0" layoutY="374.0" onAction="#onActionBtnClear" prefHeight="48.0" prefWidth="119.0" style="-fx-background-color: orange;" text="Clear" textFill="#070000">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="21.0" />
+            </font>
+        </JFXButton>
+      <JFXButton fx:id="BtnUpdate" alignment="CENTER" buttonType="RAISED" layoutX="584.0" layoutY="374.0" onAction="#onActionBtnUpdate" prefHeight="48.0" prefWidth="119.0" style="-fx-background-color: lightpink;" text="Update" textFill="#070000">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="21.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnDelete" alignment="CENTER" buttonType="RAISED" layoutX="834.0" layoutY="374.0" onAction="#onActionBtnDelete" prefHeight="48.0" prefWidth="119.0" style="-fx-background-color: red;" text="Delete" textFill="#070000">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="21.0" />
+         </font>
+      </JFXButton>
+      <TextField fx:id="txtBookId" layoutX="39.0" layoutY="150.0" onAction="#onActionBookId" prefHeight="41.0" prefWidth="312.0" promptText="Book Id" translateY="1.0">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtBookTitle" layoutX="427.0" layoutY="150.0" prefHeight="41.0" prefWidth="312.0" promptText="Book Title">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtGenre" layoutX="1174.0" layoutY="150.0" prefHeight="41.0" prefWidth="312.0" promptText="Genre">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtAuthor" layoutX="805.0" layoutY="150.0" prefHeight="41.0" prefWidth="312.0" promptText="Author">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <Label layoutX="805.0" layoutY="250.0" prefHeight="41.0" prefWidth="234.0" style="-fx-background-color: #ffffff;" text="Availability Status :">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblAvailability" alignment="CENTER" layoutX="1057.0" layoutY="250.0" prefHeight="41.0" prefWidth="234.0" style="-fx-background-color: #ffffff;" text=" " textFill="#070000">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="148.0" layoutY="250.0" prefHeight="41.0" prefWidth="134.0" style="-fx-background-color: #ffffff;" text="Branch Id :">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="comboBoxBranchId" layoutX="334.0" layoutY="247.0" prefHeight="48.0" prefWidth="225.0" style="-fx-background-color: #ffffff;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXComboBox>
+    </children>
+</AnchorPane>

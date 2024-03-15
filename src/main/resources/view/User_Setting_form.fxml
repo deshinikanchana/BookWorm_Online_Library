@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="864.0" prefWidth="1536.0" style="-fx-background-color: #b2a3d9;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.UserSettingFormController">
+
+    <children>
+        <Label alignment="CENTER" layoutX="585.0" layoutY="8.0" prefHeight="86.0" prefWidth="449.0" style="-fx-background-color: gray;" text="Account Settings" textFill="#070000">
+            <font>
+                <Font name="CANIS-MAJOR" size="31.0" />
+            </font>
+        </Label>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ffffff5d" height="695.0" layoutX="495.0" layoutY="142.0" stroke="#00000004" strokeType="INSIDE" width="630.0" />
+        <ImageView fitHeight="633.0" fitWidth="630.0" layoutX="495.0" layoutY="148.0" opacity="0.11" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/logo new one.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="164.0" fitWidth="163.0" layoutX="729.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../Assest/user 2.png" />
+            </image>
+        </ImageView>
+        <Label layoutX="549.0" layoutY="393.0" prefHeight="48.0" prefWidth="226.0" text="Current Password :">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="584.0" layoutY="471.0" prefHeight="48.0" prefWidth="191.0" text="New Password :">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label layoutX="497.0" layoutY="547.0" prefHeight="48.0" prefWidth="278.0" text="Confirm New Password :">
+            <font>
+                <Font name="System Bold" size="20.0" />
+            </font>
+        </Label>
+        <Label fx:id="lblUserName" alignment="CENTER" layoutX="764.0" layoutY="342.0" prefHeight="32.0" prefWidth="94.0" textFill="#010103">
+            <font>
+                <Font name="DejaVu Serif Bold" size="20.0" />
+            </font>
+        </Label>
+        <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="857.0" layoutY="680.0" onAction="#onActionBtnSubmit" prefHeight="42.0" prefWidth="94.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <JFXButton fx:id="btnClear" buttonType="RAISED" layoutX="993.0" layoutY="680.0" onAction="#onActionBtnClear" prefHeight="42.0" prefWidth="94.0" style="-fx-background-color: blue;" text="Clear" textFill="WHITE">
+            <font>
+                <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </JFXButton>
+        <CheckBox fx:id="selectBoxShowPw" layoutX="849.0" layoutY="615.0" mnemonicParsing="false" onAction="#onActionShowPw" text="Show Password">
+            <font>
+                <Font name="FreeSans Bold" size="13.0" />
+            </font>
+        </CheckBox>
+        <TextField fx:id="txtCurrentPw" layoutX="823.0" layoutY="393.0" prefHeight="48.0" prefWidth="276.0" style="-fx-background-color: white;">
+            <font>
+                <Font name="DejaVu Serif Bold" size="20.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <TextField fx:id="txtNewPw" layoutX="823.0" layoutY="471.0" prefHeight="48.0" prefWidth="276.0" style="-fx-background-color: white;">
+            <font>
+                <Font name="DejaVu Serif Bold" size="20.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <TextField fx:id="txtConfirmNewPw" layoutX="823.0" layoutY="547.0" prefHeight="48.0" prefWidth="276.0" style="-fx-background-color: white;">
+            <font>
+                <Font name="DejaVu Serif Bold" size="20.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="TEXT" />
+            </cursor>
+        </TextField>
+        <PasswordField fx:id="pwFieldPw" layoutX="823.0" layoutY="393.0" prefHeight="48.0" prefWidth="276.0" style="-fx-background-color: white;" />
+        <PasswordField fx:id="pwFieldNewPw" layoutX="823.0" layoutY="471.0" prefHeight="48.0" prefWidth="276.0" style="-fx-background-color: white;" />
+        <PasswordField fx:id="pwFieldConfirmPw" layoutX="823.0" layoutY="547.0" prefHeight="48.0" prefWidth="276.0" style="-fx-background-color: white;" />
+      <Line endX="507.3525390625" layoutX="612.0" layoutY="768.0" opacity="0.85" startX="-110.0" strokeWidth="5.0">
+         <stroke>
+            <LinearGradient cycleMethod="REFLECT" endX="0.5571428571428572" endY="0.519047619047619" startX="0.5142857142857142" startY="0.5238095238095238">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.45565301179885864" green="0.024853801354765892" blue="0.6710526347160339" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.8815789222717285" green="0.8530092835426331" blue="0.8530092835426331" />
+                     </color>
+                  </Stop>
+               </stops>
+            </LinearGradient>
+         </stroke>
+      </Line>
+      <JFXButton fx:id="btnDeleteAcc" buttonType="RAISED" layoutX="722.0" layoutY="784.0" onAction="#onActionDeleteAcc" prefHeight="42.0" prefWidth="202.0" style="-fx-background-color: red;" text="Delete My Account" textFill="WHITE">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+    </children>
+</AnchorPane>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="864.0" prefWidth="1536.0" style="-fx-background-color: #99a3bfd8;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BookWorm.Controller.AdminSettingFormController">
+    <children>
+        <Label alignment="CENTER" layoutX="585.0" layoutY="8.0" prefHeight="86.0" prefWidth="449.0" style="-fx-background-color: silver;" text="Change Password" textFill="#070000">
+            <font>
+                <Font name="CANIS-MAJOR" size="31.0" />
+            </font>
+        </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="654.0" layoutX="495.0" layoutY="142.0" opacity="0.77" stroke="#00000004" strokeType="INSIDE" width="630.0">
+         <fill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop>
+                     <color>
+                        <Color red="0.8552631735801697" green="0.8552631735801697" blue="0.8552631735801697" />
+                     </color>
+                  </Stop>
+                  <Stop offset="1.0">
+                     <color>
+                        <Color red="0.6842105388641357" green="0.6525341272354126" blue="0.6525341272354126" />
+                     </color>
+                  </Stop>
+               </stops>
+            </RadialGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="654.0" fitWidth="630.0" layoutX="495.0" layoutY="148.0" opacity="0.16" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assest/logo new one.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="164.0" fitWidth="163.0" layoutX="729.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assest/admin.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="567.0" layoutY="445.0" prefHeight="48.0" prefWidth="202.0" style="-fx-background-color: #ffffff;" text="Current Password :">
+         <font>
+            <Font name="C059-Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="606.0" layoutY="523.0" prefHeight="48.0" prefWidth="163.0" style="-fx-background-color: #ffffff;" text="New Password :">
+         <font>
+            <Font name="C059-Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="515.0" layoutY="599.0" prefHeight="48.0" prefWidth="254.0" style="-fx-background-color: #ffffff;" text="Confirm New Password :">
+         <font>
+            <Font name="C059-Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="764.0" layoutY="342.0" prefHeight="32.0" prefWidth="94.0" text="Admin" textFill="#010103">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="btnSubmit" buttonType="RAISED" layoutX="851.0" layoutY="732.0" onAction="#onActionBtnSubmit" prefHeight="42.0" prefWidth="94.0" style="-fx-background-color: green;" text="Submit" textFill="WHITE">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <JFXButton fx:id="btnClear" buttonType="RAISED" layoutX="987.0" layoutY="732.0" onAction="#onActionBtnClear" prefHeight="42.0" prefWidth="94.0" style="-fx-background-color: blue;" text="Clear" textFill="WHITE">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <CheckBox fx:id="CheckBoxShowPw" layoutX="843.0" layoutY="667.0" mnemonicParsing="false" onAction="#onActionShowPw" text="Show Password">
+         <font>
+            <Font name="FreeSans Bold" size="13.0" />
+         </font>
+      </CheckBox>
+      <TextField fx:id="txtCurrentPw" layoutX="817.0" layoutY="445.0" prefHeight="48.0" prefWidth="276.0">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtNewPw" layoutX="817.0" layoutY="523.0" prefHeight="48.0" prefWidth="276.0">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <TextField fx:id="txtConfirmNewPw" layoutX="817.0" layoutY="599.0" prefHeight="48.0" prefWidth="276.0">
+         <font>
+            <Font name="DejaVu Serif Bold" size="20.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+      </TextField>
+      <PasswordField fx:id="pwFieldPw" layoutX="817.0" layoutY="445.0" prefHeight="48.0" prefWidth="276.0" />
+      <PasswordField fx:id="pwFieldNewPw" layoutX="817.0" layoutY="523.0" prefHeight="48.0" prefWidth="276.0" />
+      <PasswordField fx:id="pwFieldConfirmPw" layoutX="817.0" layoutY="599.0" prefHeight="48.0" prefWidth="276.0" />
+      <Label fx:id="lblAdminName" alignment="CENTER" layoutX="741.0" layoutY="383.0" prefHeight="32.0" prefWidth="153.0" text=" " textFill="#070000">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="16.0" />
+         </font>
+      </Label>
+    </children>
+
+</AnchorPane>
