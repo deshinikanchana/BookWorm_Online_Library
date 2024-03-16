@@ -1,7 +1,11 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.TransactionDAO;
-import BookWorm.DAO.TransactionDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminSettingBO;
+import BookWorm.BO.custom.AllTransactionBO;
+import BookWorm.DAO.custom.TransactionDAO;
+import BookWorm.DAO.custom.impl.TransactionDAOimpl;
+import BookWorm.DTO.BookTransactionDto;
 import BookWorm.Entity.BookTransaction;
 import BookWorm.DTO.TM.TransactionTm;
 import BookWorm.embedded.TransactionPK;
@@ -31,7 +35,7 @@ public class AllTransactionsFormController {
     public TextField txtUserId;
     public AnchorPane root;
 
-    public TransactionDAO transDao = new TransactionDAOimpl();
+    AllTransactionBO bo = (AllTransactionBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ALLTRANS);
     public void initialize() throws IOException {
        loadAllTransactions();
         setCellValueFactory();
@@ -50,10 +54,10 @@ public class AllTransactionsFormController {
     private void loadAllTransactions() throws IOException {
         try {
            // TransactionRepository transRep = new TransactionRepository();
-            List<BookTransaction> transList = transDao.GetAllTransactions();
+            List<BookTransactionDto> transList = bo.GetAllTransactions();
 
             ObservableList<TransactionTm> obList = FXCollections.observableArrayList();
-            for(BookTransaction btr : transList){
+            for(BookTransactionDto btr : transList){
                 Button btn = new Button("Returned");
                 btn.setCursor(Cursor.HAND);
 
@@ -91,9 +95,9 @@ public class AllTransactionsFormController {
 
     private void UpdateTransaction(TransactionPK pk, Timestamp borrowedDate) throws IOException {
        // TransactionRepository transRepo = new TransactionRepository();
-        List<BookTransaction> list = transDao.GetAllTransactions();
-        BookTransaction btr = new BookTransaction();
-        for(BookTransaction myBook:list){
+        List<BookTransactionDto> list = bo.GetAllTransactions();
+        BookTransactionDto btr = new BookTransactionDto();
+        for(BookTransactionDto myBook:list){
             if(myBook.getBorrowedDate().equals(borrowedDate) & (myBook.getTransactionPk().getUserId() == pk.getUserId() & (myBook.getTransactionPk().getBookId() == pk.getBookId()))){
                  btr = myBook;
             }
@@ -101,7 +105,7 @@ public class AllTransactionsFormController {
         btr.setStatus("Available");
 
         //transRepo = new TransactionRepository();
-        if(transDao.UpdateTransaction(btr)){
+        if(bo.UpdateTransaction(btr)){
             new Alert(Alert.AlertType.CONFIRMATION, "Transaction Updated !!!").show();
             loadAllTransactions();
         }
@@ -113,16 +117,16 @@ public class AllTransactionsFormController {
 
         try {
             //TransactionRepository tr = new TransactionRepository();
-            List<BookTransaction> btr = transDao.GetAllTransactions();
+            List<BookTransactionDto> btr = bo.GetAllTransactions();
 
-            List<BookTransaction> book = new ArrayList<>();
-            for (BookTransaction Btr : btr) {
+            List<BookTransactionDto> book = new ArrayList<>();
+            for (BookTransactionDto Btr : btr) {
                 if (id == Btr.getTransactionPk().getBookId()) {
                     book.add(Btr);
                 }
             }
 
-            for (BookTransaction trans:book){
+            for (BookTransactionDto trans:book){
                 Button btn = new Button("Returned");
                 btn.setCursor(Cursor.HAND);
 
@@ -178,16 +182,16 @@ tblTransactions.setItems(obList);
 
         try {
            // TransactionRepository tr = new TransactionRepository();
-            List<BookTransaction> btr = transDao.GetAllTransactions();
+            List<BookTransactionDto> btr = bo.GetAllTransactions();
 
-            List<BookTransaction> usr = new ArrayList<>();
-            for (BookTransaction Btr : btr) {
+            List<BookTransactionDto> usr = new ArrayList<>();
+            for (BookTransactionDto Btr : btr) {
                 if (id == Btr.getTransactionPk().getUserId()) {
                     usr.add(Btr);
                 }
             }
 
-            for (BookTransaction trans:usr){
+            for (BookTransactionDto trans:usr){
                 Button btn = new Button("Returned");
                 btn.setCursor(Cursor.HAND);
 

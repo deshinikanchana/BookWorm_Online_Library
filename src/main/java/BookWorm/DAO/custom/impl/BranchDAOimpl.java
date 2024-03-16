@@ -1,6 +1,7 @@
-package BookWorm.DAO;
+package BookWorm.DAO.custom.impl;
 
 import BookWorm.Config.SessionFactoryConfig;
+import BookWorm.DAO.custom.BranchDAO;
 import BookWorm.DTO.BranchDto;
 import BookWorm.Entity.Branch;
 import org.hibernate.Session;
@@ -10,15 +11,15 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class BranchDAOimpl implements BranchDAO{
+public class BranchDAOimpl implements BranchDAO {
     @Override
-    public int Save(BranchDto dto) throws IOException {
+    public int Save(Branch br) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         try {
-            int branchId = (int) session.save(dto);
+            int branchId = (int) session.save(br);
             transaction.commit();
-            System.out.println("Branch save : " + dto.toString());
+            System.out.println("Branch save : " + br.toString());
             session.close();
             return branchId;
         }catch (Exception ex){
@@ -30,13 +31,12 @@ public class BranchDAOimpl implements BranchDAO{
     }
 
     @Override
-    public BranchDto Get(int id) throws IOException {
+    public Branch Get(int id) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         try{
             Branch branch = session.get(Branch.class,id);
             session.close();
-            BranchDto dto = new BranchDto(branch.getBranchId(),branch.getAddress(),branch.getEmail(),branch.getAdmin(),branch.getBookList());
-            return dto;
+            return branch;
         }catch (Exception e){
             e.printStackTrace();
             throw e;
@@ -44,11 +44,11 @@ public class BranchDAOimpl implements BranchDAO{
     }
 
     @Override
-    public boolean Update(BranchDto dto) throws IOException {
+    public boolean Update(Branch br) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction trans = session.beginTransaction();
         try{
-            session.update(dto);
+            session.update(br);
             trans.commit();
             session.close();
             return true;
@@ -61,12 +61,11 @@ public class BranchDAOimpl implements BranchDAO{
     }
 
     @Override
-    public boolean Delete(BranchDto dto) throws IOException {
+    public boolean Delete(Branch br) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction delTrans = session.beginTransaction();
         try{
-            Branch branch = new Branch(dto.getBranchId(),dto.getAddress(),dto.getEmail(),dto.getAdmin(),dto.getBookList());
-            session.delete(branch);
+            session.delete(br);
             delTrans.commit();
             session.close();
             return true;
@@ -79,7 +78,7 @@ public class BranchDAOimpl implements BranchDAO{
     }
 
     @Override
-    public List<BranchDto> GetAll() throws IOException {
+    public List<Branch> GetAll() throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         String sql = "SELECT C FROM Branch As C";
         Query query = session.createQuery(sql);

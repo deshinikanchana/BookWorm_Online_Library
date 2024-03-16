@@ -1,7 +1,11 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.UserDAO;
-import BookWorm.DAO.UserDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminSettingBO;
+import BookWorm.BO.custom.UserLoginBO;
+import BookWorm.DAO.custom.UserDAO;
+import BookWorm.DAO.custom.impl.UserDAOimpl;
+import BookWorm.DTO.UserDto;
 import BookWorm.Entity.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +25,9 @@ public class LoginFormController {
     public Hyperlink hyperlinkLink;
 
     public AnchorPane root;
-    public static User currentUser;
+    public static UserDto currentUser;
 
-    public UserDAO userDao =new UserDAOimpl();
+    UserLoginBO bo = (UserLoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USERLOG);
 
     public void onActionShowPw(ActionEvent actionEvent) {
         if(showPw.isSelected()){
@@ -40,6 +44,7 @@ public class LoginFormController {
     public void onActiontxtUserName(ActionEvent actionEvent) {
     }
 
+
     public void onActionHyperLink(ActionEvent actionEvent) throws IOException {
         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/user_register_form.fxml"));
         Stage stage = (Stage) root.getScene().getWindow();
@@ -53,8 +58,8 @@ public class LoginFormController {
             String password = pwFieldPassword.getText();
             //UserRepository userRepo = new UserRepository();
 
-            List<User> userList = userDao.getAllUsers();
-            for (User user : userList) {
+            List<UserDto> userList = bo.getAllUsers();
+            for (UserDto user : userList) {
                 if (user.getUserName().equals(txtUserName.getText())) {
                     if (user.getPasssword().equals(password)) {
                         currentUser = user;

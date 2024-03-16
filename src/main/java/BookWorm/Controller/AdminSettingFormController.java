@@ -1,9 +1,13 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.AdminDAO;
-import BookWorm.DAO.AdminDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminSettingBO;
+import BookWorm.DAO.custom.AdminDAO;
+import BookWorm.DAO.custom.impl.AdminDAOimpl;
+import BookWorm.DTO.AdminDto;
 import BookWorm.Entity.Admin;
 import BookWorm.projection.AdminProjection;
+import BookWorm.util.RegExPatterns;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +28,7 @@ public class AdminSettingFormController {
     public AnchorPane root;
     public Label lblAdminName;
 
-    public AdminDAO adminDao = new AdminDAOimpl();
+    AdminSettingBO bo = (AdminSettingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ADMINSET);
 
     public void initialize() throws IOException {
         lblAdminName.setText(CurrentAdmin.getAdminName());
@@ -33,15 +37,14 @@ public class AdminSettingFormController {
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
        // AdminRepository adRepo = new AdminRepository();
         if(pwFieldPw.getText() != null){
-            List<AdminProjection> adminProj = adminDao.getAdminProjection();
+            List<AdminProjection> adminProj = bo.getAdminProjection();
             for (AdminProjection projection : adminProj) {
                 if (projection.getName().equals(CurrentAdmin.getAdminName())) {
                     if (projection.getPw().equals(pwFieldPw.getText())) {
                         if((pwFieldConfirmPw.getText() != null) & (pwFieldNewPw.getText().equals(pwFieldConfirmPw.getText()))) {
                             Admin admin = new Admin(projection.getId(), projection.getName(), projection.getEmail(), pwFieldConfirmPw.getText());
-                            //adRepo = new AdminRepository();
 
-                            if( adminDao.UpdateAdmin(admin)){
+                            if( true){
                                onActionBtnClear(actionEvent);
                                return;
                            }

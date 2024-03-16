@@ -1,7 +1,11 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.UserDAO;
-import BookWorm.DAO.UserDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.SearchBookBO;
+import BookWorm.BO.custom.UserFormBO;
+import BookWorm.DAO.custom.UserDAO;
+import BookWorm.DAO.custom.impl.UserDAOimpl;
+import BookWorm.DTO.UserDto;
 import BookWorm.Entity.User;
 import BookWorm.DTO.TM.UserTm;
 import javafx.collections.FXCollections;
@@ -26,7 +30,7 @@ public class UsersFormController {
     public TextField txtUserName;
     public AnchorPane pane;
 
-    public UserDAO userDao = new UserDAOimpl();
+    UserFormBO bo = (UserFormBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USERFORM);
 
     public void initialize() throws IOException {
         loadAllUsers();
@@ -37,9 +41,9 @@ public class UsersFormController {
         ObservableList<UserTm> obList = FXCollections.observableArrayList();
         try {
            // UserRepository userRepo = new UserRepository();
-            List<User> userList = userDao.getAllUsers();
+            List<UserDto> userList = bo.getAllUsers();
 
-            for(User us:userList){
+            for(UserDto us:userList){
                 obList.add(new UserTm(
                         modifyId(us.getUserId(), "U"),
                         us.getUserName(),
@@ -64,9 +68,9 @@ public class UsersFormController {
         if(txtUserId.getText()!= null) {
             try {
                 //UserRepository usr = new UserRepository();
-                List<User> usrList = userDao.getAllUsers();
+                List<UserDto> usrList = bo.getAllUsers();
 
-                for(User user:usrList){
+                for(UserDto user:usrList){
                     if(user.getUserId()== splitId(txtUserId.getText(), "U")){
                         obList.add(new UserTm(modifyId(user.getUserId(), "U"), user.getUserName(),user.getEmail()));
                     }
@@ -103,9 +107,9 @@ public class UsersFormController {
         if(txtUserName.getText()!= null) {
             try {
                 //UserRepository usr = new UserRepository();
-                List<User> usrList = userDao.getAllUsers();
+                List<UserDto> usrList = bo.getAllUsers();
 
-                for(User user:usrList){
+                for(UserDto user:usrList){
                     if(user.getUserName().equals(txtUserName.getText())){
                         obList.add(new UserTm(modifyId(user.getUserId(), "U"), user.getUserName(),user.getEmail()));
                     }

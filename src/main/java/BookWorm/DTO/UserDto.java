@@ -23,6 +23,12 @@ public class UserDto {
         Passsword = passsword;
         this.transactionList = transactionList;
     }
+    public UserDto(int userId, String userName, String email, String passsword) {
+        UserId = userId;
+        UserName = userName;
+        Email = email;
+        Passsword = passsword;
+    }
 
     public int getUserId() {
         return UserId;

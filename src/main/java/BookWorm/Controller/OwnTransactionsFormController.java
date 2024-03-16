@@ -1,7 +1,11 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.TransactionDAO;
-import BookWorm.DAO.TransactionDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminSettingBO;
+import BookWorm.BO.custom.OwnTransactionBO;
+import BookWorm.DAO.custom.TransactionDAO;
+import BookWorm.DAO.custom.impl.TransactionDAOimpl;
+import BookWorm.DTO.BookTransactionDto;
 import BookWorm.Entity.BookTransaction;
 import BookWorm.DTO.TM.MyTransTm;
 import javafx.collections.FXCollections;
@@ -25,7 +29,7 @@ public class OwnTransactionsFormController {
 
     public AnchorPane root;
 
-    public TransactionDAO trDao = new TransactionDAOimpl();
+    OwnTransactionBO bo = (OwnTransactionBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.OWNTRANS);
     public void initialize() throws IOException {
         setCellValueFactory();
         loadaAllTransactions();
@@ -35,9 +39,9 @@ public class OwnTransactionsFormController {
         ObservableList<MyTransTm> obList = FXCollections.observableArrayList();
         try {
             //TransactionRepository tr = new TransactionRepository();
-            List<BookTransaction> bookList = trDao.GetAllTransactions();
+            List<BookTransactionDto> bookList = bo.GetAllTransactions();
 
-            for (BookTransaction book : bookList) {
+            for (BookTransactionDto book : bookList) {
                 if (book.getTransactionPk().getUserId() == currentUser.getUserId()) {
                     obList.add(new MyTransTm(
                             modifyId(book.getBook().getBookId(),"B"),

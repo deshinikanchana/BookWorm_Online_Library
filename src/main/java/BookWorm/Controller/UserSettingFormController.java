@@ -1,7 +1,11 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.UserDAO;
-import BookWorm.DAO.UserDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.SearchBookBO;
+import BookWorm.BO.custom.UserSettingBO;
+import BookWorm.DAO.custom.UserDAO;
+import BookWorm.DAO.custom.impl.UserDAOimpl;
+import BookWorm.DTO.UserDto;
 import BookWorm.Entity.User;
 import com.jfoenix.controls.JFXButton;
 import javafx.event.ActionEvent;
@@ -32,7 +36,7 @@ public class UserSettingFormController {
     public AnchorPane root;
     public JFXButton btnDeleteAcc;
 
-    public UserDAO userDao = new UserDAOimpl();
+    UserSettingBO bo = (UserSettingBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USERSET);
 
     public void initialize(){
         lblUserName.setText(currentUser.getUserName());
@@ -41,15 +45,15 @@ public class UserSettingFormController {
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
        // UserRepository userRepo = new UserRepository();
         if(pwFieldPw.getText() != null){
-            List<User> userList = userDao.getAllUsers();
-            for (User us : userList) {
+            List<UserDto> userList = bo.getAllUsers();
+            for (UserDto us : userList) {
                 if (us.getUserName().equals(currentUser.getUserName())) {
                     if (us.getPasssword().equals(pwFieldPw.getText())) {
                         if((pwFieldConfirmPw.getText() != null) & (pwFieldNewPw.getText().equals(pwFieldConfirmPw.getText()))) {
-                            User usr = new User(us.getUserId(),us.getUserName(),us.getEmail(),pwFieldConfirmPw.getText());
+                            UserDto usr = new UserDto(us.getUserId(),us.getUserName(),us.getEmail(),pwFieldConfirmPw.getText());
                            // userRepo = new UserRepository();
 
-                            if( userDao.UpdateUser(usr)){
+                            if( bo.UpdateUser(usr)){
                                 onActionBtnClear(actionEvent);
                                 return;
                             }
@@ -121,9 +125,9 @@ public class UserSettingFormController {
                 if(type.orElse(no) == yes) {
                     try {
                       //  UserRepository userRepo = new UserRepository();
-                        User usr = userDao.GetUser(currentUser.getUserId());
+                        UserDto usr = bo.GetUser(currentUser.getUserId());
 
-                        if(userDao.DeleteUser(usr)){
+                        if(bo.DeleteUser(usr)){
                             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/User_Login_form.fxml"));
                             Stage stage = (Stage) root.getScene().getWindow();
 

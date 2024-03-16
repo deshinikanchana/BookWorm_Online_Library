@@ -1,8 +1,13 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.UserDAO;
-import BookWorm.DAO.UserDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminSettingBO;
+import BookWorm.BO.custom.UserRegBO;
+import BookWorm.DAO.custom.UserDAO;
+import BookWorm.DAO.custom.impl.UserDAOimpl;
+import BookWorm.DTO.UserDto;
 import BookWorm.Entity.User;
+import BookWorm.util.RegExPatterns;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -25,7 +30,7 @@ public class UserRegisterFormController {
     public PasswordField pwFieldPw;
     public AnchorPane root;
 
-    public UserDAO userDao = new UserDAOimpl();
+    UserRegBO bo = (UserRegBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.USERREG);
     public void onActionBtnClear(ActionEvent actionEvent) {
         txtPw.setText("");
         txtConfirmPw.setText("");
@@ -35,12 +40,28 @@ public class UserRegisterFormController {
         pwFieldConfirmPw.setText("");
     }
 
+    private boolean validateAdmin() {
+        boolean isValid = true;
+
+        if (RegExPatterns.namePattern(txtName.getText())) {
+            isValid = false;
+        }
+
+        if (RegExPatterns.emailPattern(txtEmail.getText())) {
+            isValid = false;
+        }
+
+        if (RegExPatterns.passwordPattern(pwFieldPw.getText())) {
+            isValid = false;
+        }
+        return isValid;
+    }
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
 
         if(pwFieldPw.getText().equals(pwFieldConfirmPw.getText())) {
-            User user = new User(1, txtName.getText(), txtEmail.getText(), pwFieldConfirmPw.getText());
+            UserDto user = new UserDto(1, txtName.getText(), txtEmail.getText(), pwFieldConfirmPw.getText());
            // UserRepository repo = new UserRepository();
-            userDao.SaveUser(user);
+            bo.SaveUser(user);
             onActionBtnClear(actionEvent);
             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/User_Login_form.fxml"));
             Stage stage = (Stage) root.getScene().getWindow();

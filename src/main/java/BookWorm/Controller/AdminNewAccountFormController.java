@@ -1,8 +1,12 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.AdminDAO;
-import BookWorm.DAO.AdminDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminNewAccBO;
+import BookWorm.DAO.custom.AdminDAO;
+import BookWorm.DAO.custom.impl.AdminDAOimpl;
+import BookWorm.DTO.AdminDto;
 import BookWorm.Entity.Admin;
+import BookWorm.util.RegExPatterns;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +32,7 @@ public class AdminNewAccountFormController {
     @FXML
     private AnchorPane root;
 
-    private AdminDAO adminDao = new AdminDAOimpl();
+    AdminNewAccBO bo = (AdminNewAccBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ADMINNEW);
 
     public void onActionBtnClear(ActionEvent actionEvent) {
         txtPw.setText("");
@@ -39,12 +43,29 @@ public class AdminNewAccountFormController {
         pwFieldConfirmPw.setText("");
     }
 
+    private boolean validateAdmin() {
+        boolean isValid = true;
+
+        if (RegExPatterns.namePattern(txtName.getText())) {
+            isValid = false;
+        }
+
+        if (RegExPatterns.emailPattern(txtEmail.getText())) {
+            isValid = false;
+        }
+
+        if (RegExPatterns.passwordPattern(pwFieldPw.getText())) {
+            isValid = false;
+        }
+        return isValid;
+    }
+
     public void onActionBtnSubmit(ActionEvent actionEvent) throws IOException {
 
         if(pwFieldPw.getText().equals(pwFieldConfirmPw.getText())) {
             Admin ad = new Admin(1, txtName.getText(), txtEmail.getText(), pwFieldConfirmPw.getText());
             //AdminRepository repo = new AdminRepository();
-            adminDao.saveAdmin(ad);
+            bo.SaveAdmin(new AdminDto(ad.getAdminId(),ad.getAdminName(),ad.getEmail(),ad.getPassword(),ad.getBranchList()));
             onActionBtnClear(actionEvent);
             AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Admin_login_form.fxml"));
             Stage stage = (Stage) root.getScene().getWindow();

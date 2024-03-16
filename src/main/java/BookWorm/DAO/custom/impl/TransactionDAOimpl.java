@@ -1,7 +1,8 @@
-package BookWorm.DAO;
+package BookWorm.DAO.custom.impl;
 
 import BookWorm.Config.SessionFactoryConfig;
-import BookWorm.Entity.User;
+import BookWorm.DAO.custom.TransactionDAO;
+import BookWorm.Entity.BookTransaction;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -9,17 +10,17 @@ import org.hibernate.query.Query;
 import java.io.IOException;
 import java.util.List;
 
-public class UserDAOimpl implements UserDAO{
+public class TransactionDAOimpl implements TransactionDAO {
     @Override
-    public int SaveUser(User user) throws IOException {
+    public Object SaveTransaction(BookTransaction bookTransaction) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         Transaction transaction= session.beginTransaction();
         try {
-            int userId = (int) session.save(user);
+            Object transId = (Object) session.save(bookTransaction);
             transaction.commit();
-            System.out.println("User save : " + user.toString());
+            System.out.println("Transaction save : " + bookTransaction.toString());
             session.close();
-            return userId;
+            return transId;
         }catch (Exception ex){
             transaction.rollback();
             session.close();
@@ -29,12 +30,17 @@ public class UserDAOimpl implements UserDAO{
     }
 
     @Override
-    public User GetUser(int id) throws IOException {
+    public int Save(BookTransaction dto) throws IOException {
+        return 0;
+    }
+
+    @Override
+    public BookTransaction Get(int id) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
         try{
-            User user = session.get(User.class,id);
+            BookTransaction trans = session.get(BookTransaction.class,id);
             session.close();
-            return user;
+            return trans;
         }catch (Exception e){
             e.printStackTrace();
             throw e;
@@ -42,16 +48,16 @@ public class UserDAOimpl implements UserDAO{
     }
 
     @Override
-    public boolean UpdateUser(User user) throws IOException {
+    public boolean Update(BookTransaction trans) throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
-        Transaction trans = session.beginTransaction();
+        Transaction transaction = session.beginTransaction();
         try{
-            session.update(user);
-            trans.commit();
+            session.update(trans);
+            transaction.commit();
             session.close();
             return true;
         }catch (Exception e){
-            trans.rollback();
+            transaction.rollback();
             session.close();
             e.printStackTrace();
             return false;
@@ -59,26 +65,14 @@ public class UserDAOimpl implements UserDAO{
     }
 
     @Override
-    public boolean DeleteUser(User user) throws IOException {
-        Session session= SessionFactoryConfig.getInstance().getSession();
-        Transaction delTrans = session.beginTransaction();
-        try{
-            session.delete(user);
-            delTrans.commit();
-            session.close();
-            return true;
-        }catch (Exception e){
-            delTrans.rollback();
-            session.close();
-            e.printStackTrace();
-            return false;
-        }
+    public boolean Delete(BookTransaction dto) throws IOException {
+        return false;
     }
 
     @Override
-    public List<User> getAllUsers() throws IOException {
+    public List<BookTransaction> GetAll() throws IOException {
         Session session= SessionFactoryConfig.getInstance().getSession();
-        String sql = "SELECT C FROM User As C";
+        String sql = "SELECT C FROM BookTransaction As C";
         Query query = session.createQuery(sql);
         List list = query.list();
         session.close();

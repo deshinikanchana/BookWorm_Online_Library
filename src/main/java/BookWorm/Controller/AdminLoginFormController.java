@@ -1,9 +1,10 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.AdminDAO;
-import BookWorm.DAO.AdminDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminLoginBO;
+import BookWorm.DTO.AdminDto;
 import BookWorm.Entity.Admin;
-import BookWorm.projection.AdminProjection;
+import BookWorm.util.RegExPatterns;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,13 +25,13 @@ public class AdminLoginFormController {
 
     public static Admin CurrentAdmin;
 
-    private AdminDAO adminDao = new AdminDAOimpl();
+    AdminLoginBO bo = (AdminLoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ADMINLOG);
 
 
     public void initialize() throws IOException {
 
         //AdminRepository adrep = new AdminRepository();
-        List<Admin> admins = adminDao.getAllAdmin();
+        List<AdminDto> admins = bo.GetAllAdmins();
         if(admins.size() == 1){
             hyperLinkNewAdmin.setDisable(true);
         }else{
@@ -63,11 +64,11 @@ public class AdminLoginFormController {
             String password = pwFeildPassword.getText();
             //AdminRepository adRep = new AdminRepository();
 
-            List<AdminProjection> adminProj = adminDao.getAdminProjection();
-            for (AdminProjection projection : adminProj) {
-                if (projection.getName().equals(txtUserName.getText())) {
-                    if (projection.getPw().equals(password)) {
-                        CurrentAdmin = new Admin(projection.getId(), projection.getName(), projection.getEmail(), projection.getPw());
+            List<AdminDto> adminProj = bo.GetAllAdmins();
+            for (AdminDto admin : adminProj) {
+                if (admin.getAdminName().equals(txtUserName.getText())) {
+                    if (admin.getPassword().equals(password)) {
+                        CurrentAdmin = new Admin(admin.getAdminId(), admin.getAdminName(), admin.getEmail(), admin.getPassword());
                         AnchorPane anchorPane = FXMLLoader.load(getClass().getResource("/view/Admin_db_form.fxml"));
                         Stage stage = (Stage) root.getScene().getWindow();
 
@@ -108,5 +109,18 @@ public class AdminLoginFormController {
 
         stage.setScene(new Scene(anchorPane));
         stage.centerOnScreen();
+    }
+
+    private boolean validateAdmin() {
+        boolean isValid = true;
+
+        if (RegExPatterns.namePattern(txtUserName.getText())) {
+            isValid = false;
+        }
+
+        if (RegExPatterns.passwordPattern(pwFeildPassword.getText())) {
+            isValid = false;
+        }
+        return isValid;
     }
 }

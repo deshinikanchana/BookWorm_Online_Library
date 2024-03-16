@@ -1,9 +1,13 @@
 package BookWorm.Controller;
 
-import BookWorm.DAO.BookDAO;
-import BookWorm.DAO.BookDAOimpl;
-import BookWorm.DAO.UserDAO;
-import BookWorm.DAO.UserDAOimpl;
+import BookWorm.BO.BOFactory;
+import BookWorm.BO.custom.AdminDashBoardBO;
+import BookWorm.DAO.custom.BookDAO;
+import BookWorm.DAO.custom.impl.BookDAOimpl;
+import BookWorm.DAO.custom.UserDAO;
+import BookWorm.DAO.custom.impl.UserDAOimpl;
+import BookWorm.DTO.BookDto;
+import BookWorm.DTO.UserDto;
 import BookWorm.Entity.Book;
 import BookWorm.Entity.User;
 import javafx.animation.AnimationTimer;
@@ -31,8 +35,7 @@ public class AdminDbFormController {
     public Label lblUsersCount;
     public Label lblAdminName;
 
-    private UserDAO Udao = new UserDAOimpl();
-    private BookDAO bookDao = new BookDAOimpl();
+    AdminDashBoardBO bo = (AdminDashBoardBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ADMINDB);
 
     private Stage stage = new Stage();
 
@@ -52,11 +55,11 @@ public class AdminDbFormController {
         lblDate.setText(String.valueOf(LocalDate.now()));
 
 
-        List<User> userList = Udao.getAllUsers();
+        List<UserDto> userList = bo.getAllUsers();
         lblUsersCount.setText(String.valueOf(userList.size()));
 
         //BookRepository bookRepo = new BookRepository();
-        List<Book> bookList = bookDao.getAllBooks();
+        List<BookDto> bookList = bo.getAllBooks();
         lblBooksCount.setText(String.valueOf(bookList.size()));
     }
 
